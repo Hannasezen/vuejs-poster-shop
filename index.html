@@ -27,8 +27,15 @@
             <div class="product"
                 v-for="(item, index) in items"
                 :key="item.title">
-                <h4 class="product-title">{{ item.title }}</h4>
-                <button @click="addItem(index)" class="add-to-cart btn">Add to cart</button>
+                <div>
+                    <div class="product-image">
+                        <img :src="item.link" alt="Posters image">
+                    </div>
+                </div>
+                <div>
+                    <h4 class="product-title">{{ item.title }}</h4>
+                    <button @click="addItem(index)" class="add-to-cart btn">Add to cart</button>
+                </div>
             </div>
         </div>
         <div class="cart">
