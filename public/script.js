@@ -1,1 +1,1 @@
-console.log('It works. Hi');
+console.log(Vue);
