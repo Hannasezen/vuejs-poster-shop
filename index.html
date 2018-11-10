@@ -20,12 +20,21 @@
     </div>
     <div class="main">
         <div class="products">
-            <p>Products go here.</p>
+            <div class="product"
+                v-for="(item, index) in items"
+                :key="item.title">
+                <h4 class="product-title">{{ item.title }}</h4>
+                <button @click="addItem(index)" class="add-to-cart">Add to cart</button>
+            </div>
         </div>
         <div class="cart">
             <h2>Shopping Cart</h2>
-            <div>
-                No items in the cart.
+                <ul>
+                    <li class="cart-item" v-for="item in cart">
+                        <div class="item-title">{{ item.title }}</div>
+                    </li>
+                </ul>
+                <div>Total: <span v-if="total > 0"> &#8372 </span> {{ total }}</div>
             </div>
         </div>
     </div>
