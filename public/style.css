@@ -102,7 +102,8 @@ h1 {
     border-right: none;
 }
 
-.searchbar > input[type=submit] {
+.searchbar > .btn {
+    text-align: center;
     background-color: black;
     padding: 1rem;
     border: none;
@@ -138,10 +139,6 @@ h1 {
 
 .product:first-child {
     margin-top: 0;
-}
-
-.product > div:first-child {
-
 }
 
 .product > div:last-child {
@@ -207,10 +204,6 @@ h1 {
 
 .cart ul .cart-item {
     border-bottom: 1px solid #E9E9E9;
-}
-
-.cart ul .cart-item .item-title {
-
 }
 
 .cart ul .cart-item .item-price {

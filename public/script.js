@@ -7,9 +7,13 @@ new Vue({
             { id: 2, title: 'Item2', price: 7.99 },
             { id: 3, title: 'Item3', price: 6.99 }
         ],
-        cart: []
+        cart: [],
+        search: ''
     },
     methods: {
+        onSubmit: function () {
+            console.log(this.search);
+        },
         addItem: function (index) {
             let item = this.items[index];
             let found = false;
