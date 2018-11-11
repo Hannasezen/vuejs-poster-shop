@@ -13,6 +13,11 @@ new Vue({
         loading: false,
         price: PRICE
     },
+    computed: {
+        noMoreItems: function() {
+            return this.items.length === this.results.length && this.results.length > 0;
+        }
+    },
     methods: {
         appendItems: function() {
             if(this.items.length < this.results.length) {
@@ -77,7 +82,7 @@ new Vue({
     filters: {
         currency: function(price) {
             return '$'.concat(price.toFixed(2));
-        }
+      }
     },
     mounted: function() {
         this.onSubmit();
