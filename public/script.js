@@ -26,19 +26,21 @@ new Vue({
             }            
         },
         onSubmit: function () {
-            this.items = [];
-            this.loading = true;
-            this.$http
-            .get('/search/'.concat(this.newSearch))
-            .then(function(res) {
-                this.lastSearch = this.newSearch;
-                this.results = res.data,
-                this.appendItems();
-                this.loading = false;
-            })
-            .catch(function(er) {
-                console.log(er);
-            });
+            if(this.newSearch.length) {
+                this.items = [];
+                this.loading = true;
+                this.$http
+                .get('/search/'.concat(this.newSearch))
+                .then(function(res) {
+                    this.lastSearch = this.newSearch;
+                    this.results = res.data,
+                    this.appendItems();
+                    this.loading = false;
+                })
+                .catch(function(er) {
+                    console.log(er);
+                });
+            }
         },
         addItem: function (index) {
             let item = this.items[index];
