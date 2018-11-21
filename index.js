@@ -6,14 +6,14 @@ var axios = require('axios');
 var querystring = require('querystring');
 var Pusher = require('pusher');
 
+require('dotenv').config();
+
 var pusher = new Pusher({
   appId: process.env.PUSHER_APP_ID,
   key: process.env.PUSHER_KEY,
   secret: process.env.PUSHER_SECRET,
   cluster: process.env.PUSHER_CLUSTER
 })
-
-require('dotenv').config();
 
 var bodyParser = require('body-parser');
 app.use( bodyParser.json() );
