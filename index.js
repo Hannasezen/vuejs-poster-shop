@@ -40,7 +40,7 @@ app.get('/search/:query', function(req, res) {
 });
 
 app.post('/cart_update', function(req, res) {
-  console.log(req.body);
+  pusher.trigger('cart', 'update', req.body);
 });
 
 app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')));

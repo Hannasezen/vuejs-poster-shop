@@ -1,6 +1,11 @@
 const PRICE = 9.99;
 const LOAD_NUM = 10;
 
+var pusher = new Pusher('228e6a0602902cd71bd7', {
+    cluster: 'ap1',
+    encrypted: true
+});
+
 new Vue({
     el: '#app',
     data: {
@@ -11,7 +16,32 @@ new Vue({
         newSearch: '90s',
         lastSearch: '',
         loading: false,
-        price: PRICE
+        price: PRICE,
+        pusherUpdate: false
+    },
+    mounted: function() {
+        this.onSubmit();
+
+        var vue = this;
+        var elem = document.getElementById('product-list-bottom')
+        var watcher = scrollMonitor.create(elem);
+        watcher.enterViewport(function() {
+            vue.appendItems();
+        });
+        var channel = pusher.subscribe('cart');
+        channel.bind('update', function(data){
+            vue.pusherUpdate = true;
+            vue.cart = data;
+            vue.total = 0;
+            for(let i = 0; i < vue.cart.length; i++) {
+                vue.total += PRICE * vue.cart[i].qty;
+            }
+        })
+    },
+    filters: {
+        currency: function(price) {
+            return '$'.concat(price.toFixed(2));
+      }
     },
     computed: {
         noMoreItems: function() {
@@ -21,7 +51,11 @@ new Vue({
     watch: {
         cart: {
             handler: function(val) {
-                this.$http.post('/cart_update', val);
+                if(!this.pusherUpdate) {
+                    this.$http.post('/cart_update', val);
+                } else {
+                    this.pusherUpdate = false;
+                }           
             },
             deep: true
         }       
@@ -88,22 +122,7 @@ new Vue({
                 }
             }
         }
-    },
-    filters: {
-        currency: function(price) {
-            return '$'.concat(price.toFixed(2));
-      }
-    },
-    mounted: function() {
-        this.onSubmit();
-
-        var vueInstance = this;
-        var elem = document.getElementById('product-list-bottom')
-        var watcher = scrollMonitor.create(elem);
-        watcher.enterViewport(function() {
-            vueInstance.appendItems();
-        })
-    }
+    }     
 });
 
 
