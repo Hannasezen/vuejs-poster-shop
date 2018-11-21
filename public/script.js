@@ -19,10 +19,12 @@ new Vue({
         }
     },
     watch: {
-        handler: function() {
-            console.log('Cart changed');
-        },
-        deep: true
+        cart: {
+            handler: function(val) {
+                this.$http.post('/cart_update', val);
+            },
+            deep: true
+        }       
     },
     methods: {
         appendItems: function() {
